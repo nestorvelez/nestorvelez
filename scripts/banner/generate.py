@@ -47,7 +47,7 @@ YAML_ROWS = [
     (0, "stack", ""),
     (1, "cloud", "Azure · GCP · AWS · Oracle OCI"),
     (1, "containers", "AKS · Kubernetes · Docker"),
-    (1, "iac", "Terraform (aprendizaje)"),
+    (1, "iac", "Terraform · Bicep"),
     (1, "observability", "Dynatrace · Azure Monitor · Zabbix"),
     (1, "automation", "Bash · PowerShell"),
     (0, "contact", ""),

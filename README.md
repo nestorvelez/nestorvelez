@@ -50,8 +50,8 @@
 </tr>
 <tr>
 <td width="50%" valign="top"><code>├─ ⌁ automation_iac:</code><br><br>
-<img src="https://skillicons.dev/icons?i=bash,powershell,terraform" alt="Bash · PowerShell · Terraform (aprendizaje)"><br>
-<sub><code>Bash · PowerShell · Terraform (aprendizaje)</code></sub></td>
+<img src="https://skillicons.dev/icons?i=bash,powershell,terraform" alt="Bash · PowerShell · Terraform · Bicep"><br>
+<sub><code>Bash · PowerShell · Terraform · Bicep</code></sub></td>
 <td width="50%" valign="top"><code>├─ ✦ security_devsecops:</code><br><br>
 <img src="assets/icon-sonarqube.svg" height="48" alt="SonarQube"><br>
 <sub><code>SonarQube · RBAC · Hardening · Parches · Vulnerabilidades</code></sub></td>

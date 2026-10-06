@@ -16,7 +16,7 @@ del proyecto.
 - Áreas de enfoque y aprendizaje: `assets/skills.json` y `assets/langmix.json`.
 
 Los mapas muestran temas de enfoque, sin porcentajes ni puntuaciones de dominio.
-Terraform, Platform Engineering y Azure Landing Zones se presentan como aprendizaje.
+IaC incluye Terraform y Bicep. Platform Engineering y Azure Landing Zones se presentan como aprendizaje.
 
 El retrato se dibuja con puntos monocromos y dithering de 1 bit, como pixel art.
 Se conserva el encuadre completo, la máscara del fondo y la transición a los logos.
