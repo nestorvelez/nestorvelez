@@ -54,7 +54,7 @@
 <sub><code>Bash · PowerShell · Terraform · Bicep</code></sub></td>
 <td width="50%" valign="top"><code>├─ ✦ security_devsecops:</code><br><br>
 <img src="assets/icon-sonarqube.svg" height="48" alt="SonarQube"><br>
-<sub><code>SonarQube · RBAC · Hardening · Parches · Vulnerabilidades</code></sub></td>
+<sub><code>SonarQube · Snyk · Rapid7 · RBAC · Hardening · Parches · Vulnerabilidades</code></sub></td>
 </tr>
 </tbody><tfoot><tr><td colspan="2"><code>focus: cloud_security · automation · reliability</code></td></tr></tfoot>
 </table>
