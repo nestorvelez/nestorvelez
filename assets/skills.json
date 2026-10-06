@@ -1,0 +1,23 @@
+{
+  "title": "Cloud & DevSecOps",
+  "axes": [
+    {
+      "label": "Azure"
+    },
+    {
+      "label": "AKS / Kubernetes"
+    },
+    {
+      "label": "DevSecOps"
+    },
+    {
+      "label": "Automatización"
+    },
+    {
+      "label": "Observabilidad"
+    },
+    {
+      "label": "Fiabilidad"
+    }
+  ]
+}

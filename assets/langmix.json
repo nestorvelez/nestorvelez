@@ -1,0 +1,23 @@
+{
+  "title": "Aprendizaje & objetivos",
+  "axes": [
+    {
+      "label": "Terraform"
+    },
+    {
+      "label": "Platform Engineering"
+    },
+    {
+      "label": "Azure Landing Zones"
+    },
+    {
+      "label": "GitHub Actions"
+    },
+    {
+      "label": "AI Cloud Operations"
+    },
+    {
+      "label": "Certificaciones Azure"
+    }
+  ]
+}
