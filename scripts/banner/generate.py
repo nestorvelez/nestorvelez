@@ -45,7 +45,7 @@ YAML_ROWS = [
     (1, "status", "Seguridad · Automatización · Fiabilidad"),
     (1, "toolchain", "Azure DevOps · GitHub Actions · ArgoCD"),
     (0, "stack", ""),
-    (1, "cloud", "Azure · GCP · AWS · Oracle OCI"),
+    (1, "cloud", "Azure · GCP · AWS · OCI"),
     (1, "containers", "AKS · Kubernetes · Docker"),
     (1, "iac", "Terraform · Bicep"),
     (1, "observability", "Dynatrace · Azure Monitor · Zabbix"),

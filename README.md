@@ -32,28 +32,41 @@
 <tbody>
 <tr>
 <td width="50%" valign="top"><code>├─ ☁ cloud_infrastructure:</code><br><br>
-<img src="https://skillicons.dev/icons?i=azure,gcp,aws" alt="Microsoft Azure, Google Cloud y AWS"><br>
-<img src="assets/icon-oracle-oci.svg" height="48" alt="Oracle Cloud Infrastructure"><br>
-<sub><code>Microsoft Azure · Google Cloud (GCP) · AWS · Oracle OCI</code></sub><br>
-<sub><code>Azure Landing Zones (aprendizaje)</code></sub></td>
+<img src="https://skillicons.dev/icons?i=azure,gcp,aws" alt="Microsoft Azure, GCP y AWS">
+
+<img src="assets/icon-oracle-oci.svg" height="48" alt="OCI"><br>
+<sub><code>Microsoft Azure · GCP · AWS · OCI</code></sub></td>
 <td width="50%" valign="top"><code>├─ ☸ containers_platform:</code><br><br>
+<img src="assets/icon-aks.svg" height="48" alt="AKS">
 <img src="https://skillicons.dev/icons?i=kubernetes,docker,linux" alt="AKS · Kubernetes · Docker · Linux"><br>
 <sub><code>AKS · Kubernetes · Docker · Linux</code></sub></td>
 </tr>
 <tr>
 <td width="50%" valign="top"><code>├─ ⚙ delivery_gitops:</code><br><br>
-<img src="https://skillicons.dev/icons?i=githubactions,git,github" alt="Azure DevOps · GitHub Actions · ArgoCD · GitOps"><br>
+<img src="assets/icon-azuredevops.svg" height="48" alt="Azure DevOps">
+<img src="https://skillicons.dev/icons?i=githubactions" alt="GitHub Actions">
+<img src="assets/icon-argocd.svg" height="48" alt="ArgoCD">
+<img src="assets/icon-gitops.svg" height="48" alt="GitOps"><br>
 <sub><code>Azure DevOps · GitHub Actions · ArgoCD · GitOps</code></sub></td>
 <td width="50%" valign="top"><code>├─ ◉ monitoring_observability:</code><br><br>
-<img src="https://img.shields.io/badge/Azure_Monitor-2563eb?style=for-the-badge" alt="Azure Monitor"><br>
+<img src="assets/icon-dynatrace.svg" height="48" alt="Dynatrace">
+<img src="assets/icon-azure-monitor.svg" height="48" alt="Azure Monitor">
+<img src="assets/icon-zabbix.svg" height="48" alt="Zabbix"><br>
 <sub><code>Dynatrace · Azure Monitor · Zabbix</code></sub></td>
 </tr>
 <tr>
 <td width="50%" valign="top"><code>├─ ⌁ automation_iac:</code><br><br>
-<img src="https://skillicons.dev/icons?i=bash,powershell,terraform" alt="Bash · PowerShell · Terraform · Bicep"><br>
+<img src="https://skillicons.dev/icons?i=bash,powershell,terraform" alt="Bash · PowerShell · Terraform">
+<img src="assets/icon-bicep.svg" height="48" alt="Bicep"><br>
 <sub><code>Bash · PowerShell · Terraform · Bicep</code></sub></td>
 <td width="50%" valign="top"><code>├─ ✦ security_devsecops:</code><br><br>
-<img src="assets/icon-sonarqube.svg" height="48" alt="SonarQube"><br>
+<img src="assets/icon-sonarqube.svg" height="48" alt="SonarQube">
+<img src="assets/icon-snyk.svg" height="48" alt="Snyk">
+<img src="assets/icon-rapid7.svg" height="48" alt="Rapid7">
+<img src="assets/icon-rbac.svg" height="48" alt="RBAC">
+<img src="assets/icon-hardening.svg" height="48" alt="Hardening">
+<img src="assets/icon-patches.svg" height="48" alt="Parches">
+<img src="assets/icon-vulnerabilities.svg" height="48" alt="Vulnerabilidades"><br>
 <sub><code>SonarQube · Snyk · Rapid7 · RBAC · Hardening · Parches · Vulnerabilidades</code></sub></td>
 </tr>
 </tbody><tfoot><tr><td colspan="2"><code>focus: cloud_security · automation · reliability</code></td></tr></tfoot>
