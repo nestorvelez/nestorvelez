@@ -11,8 +11,6 @@
 
 <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&amp;weight=700&amp;size=26&amp;duration=2600&amp;pause=900&amp;color=38BDF8&amp;center=true&amp;vCenter=true&amp;width=900&amp;lines=Nestor+Velez+%E2%80%94+Cloud+Infrastructure+Engineer%3BAzure+%7C+AKS+%7C+DevSecOps%3BSecurity+%E2%80%A2+Automation+%E2%80%A2+Observability%3BMulticloud+%7C+Linux+%7C+Security+Engineering" alt="Banner animado con perfil DevOps">
 
-<img src="https://komarev.com/ghpvc/?username=nestorvelez&amp;style=flat&amp;color=38bdf8&amp;label=profile+views" alt="Visitas al perfil de nestorvelez">
-
 </div>
 
 ---
