@@ -2,9 +2,9 @@
 
 <!-- BLUE SECURITY TERMINAL BANNER -->
 <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.v11.svg">
-    <source media="(prefers-color-scheme: light)" srcset="assets/banner-light.v11.svg">
-    <img src="assets/banner-light.v11.svg" width="960" alt="Perfil Cloud y DevSecOps de Nestor Velez">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.v12.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/banner-light.v12.svg">
+    <img src="assets/banner-light.v12.svg" width="960" alt="Perfil Cloud y DevSecOps de Nestor Velez">
   </picture>
 
 <br>

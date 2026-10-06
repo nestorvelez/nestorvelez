@@ -18,8 +18,8 @@ del proyecto.
 Los mapas muestran temas de enfoque, sin porcentajes ni puntuaciones de dominio.
 Terraform, Platform Engineering y Azure Landing Zones se presentan como aprendizaje.
 
-El retrato usa 32 tonos azules suaves para conservar los rasgos. La capa de
-partículas tiene una opacidad del 4 %; las transiciones a los logos se conservan.
+El retrato se dibuja con puntos monocromos y dithering de 1 bit, como pixel art.
+Se conserva el encuadre completo, la máscara del fondo y la transición a los logos.
 
 ## Regenerar los recursos
 
