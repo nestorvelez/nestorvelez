@@ -180,8 +180,8 @@ def floyd_steinberg(gray: np.ndarray) -> np.ndarray:
     return out
 
 
-def portrait_points(theme: str, rng: np.random.Generator) -> np.ndarray:
-    """Return sampled x/y banner coordinates from a 300x340 dither grid."""
+def portrait_canvas() -> Image.Image:
+    """Fit the full portrait and exclude the connected neutral backdrop."""
     source = Image.open(SOURCE).convert("RGBA")
     # Exclude the white backdrop of the supplied portrait from the particles.
     pixels = np.asarray(source.convert("RGB"), dtype=np.int16)
@@ -194,6 +194,43 @@ def portrait_points(theme: str, rng: np.random.Generator) -> np.ndarray:
     fitted = ImageOps.contain(source, (280, 280), Image.Resampling.LANCZOS)
     crop = Image.new("RGBA", (300, 340), (0, 0, 0, 0))
     crop.alpha_composite(fitted, ((300 - fitted.width) // 2, (340 - fitted.height) // 2))
+    return crop
+
+
+def portrait_tones(theme: str, key_times: str, loop_duration: str) -> str:
+    """Render continuous facial detail as 32 subdued blue vector tones."""
+    crop = portrait_canvas()
+    gray = np.asarray(ImageOps.grayscale(crop), dtype=np.int16)
+    alpha = np.asarray(crop.getchannel("A"))
+    tones = np.where(alpha >= 242, np.minimum(31, gray * 32 // 256), -1)
+    paths: list[list[str]] = [[] for _ in range(32)]
+    for y in range(340):
+        x = 0
+        while x < 300:
+            tone = int(tones[y, x])
+            start = x
+            while x < 300 and int(tones[y, x]) == tone:
+                x += 1
+            if tone >= 0:
+                width = x - start
+                paths[tone].append(f"M{74 + start} {154 + y}h{width}v1h-{width}z")
+    low = (29, 47, 68) if theme == "dark" else (29, 49, 69)
+    high = (181, 199, 217) if theme == "dark" else (214, 226, 236)
+    layers = ['<g id="portrait-tones" opacity=".92" shape-rendering="geometricPrecision">']
+    for index, commands in enumerate(paths):
+        color = ",".join(str(round(a + (b - a) * index / 31)) for a, b in zip(low, high))
+        layers.append(f'<path d="{"".join(commands)}" fill="rgb({color})"/>')
+    count = len(key_times.split(";"))
+    opacity = ";".join([".92", ".92"] + ["0"] * (count - 3) + [".92"])
+    layers.append(f'<animate attributeName="opacity" begin="{INTRO_SECONDS}s" '
+                  f'dur="{loop_duration}s" repeatCount="indefinite" '
+                  f'keyTimes="{key_times}" values="{opacity}"/></g>')
+    return "".join(layers)
+
+
+def portrait_points(theme: str, rng: np.random.Generator) -> np.ndarray:
+    """Return particles for the restrained overlay and logo transitions."""
+    crop = portrait_canvas()
     alpha = np.asarray(crop.getchannel("A"), dtype=np.float32) / 255.0
 
     # Put the portrait over a solid background to process lighting
@@ -373,10 +410,11 @@ def render_svg(
         'font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="13" '
         'font-weight="700" letter-spacing="1.2">VISUAL.MAP</text>',
         f'<text x="438" y="111" text-anchor="end" fill="{t["muted"]}" '
-        'font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="11">300×340 / 1-BIT</text>',
+        'font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="11">280×280 / 32 TONES</text>',
         f'<path d="M49 141h12M49 141v12M439 141h-12M439 141v12M49 539h12M49 539v-12'
         f'M439 539h-12M439 539v-12" fill="none" stroke="{t["chrome"]}" opacity=".55"/>',
         '<g clip-path="url(#visualClip)" shape-rendering="crispEdges">',
+        portrait_tones(theme, key_times, loop_duration),
         # Loop layer stays visible at t=0 so camo/static first frames still show the face.
         # Intro duplicate below shimmers on top, then hands off at 3.2s.
         '<g opacity="1">',
@@ -395,15 +433,15 @@ def render_svg(
         drift_positions = ["0 0", "0 0", f"{num(delta[0])} {num(delta[1])}",
                            f"{num(delta[0])} {num(delta[1])}"]
         drift_positions.extend(["0 0"] * (len(frames) - len(drift_positions)))
-        drift_opacity = [".94", ".94", "0", "0"]
+        drift_opacity = [".04", ".04", "0", "0"]
         drift_opacity.extend(["0"] * (len(frames) - len(drift_opacity) - 1))
-        drift_opacity.append(".94")
+        drift_opacity.append(".04")
         drift_position_values = ";".join(drift_positions)
         drift_opacity_values = ";".join(drift_opacity)
         d = point_path(pts)
         parts.append(
             f'<path d="{d}" fill="none" stroke="{t["portrait"]}" stroke-width="1" '
-            'opacity=".94">'
+            'opacity=".04">'
             f'<animateTransform attributeName="transform" type="translate" begin="{INTRO_SECONDS}s" '
             f'dur="{loop_duration}s" repeatCount="indefinite" calcMode="linear" '
             f'keyTimes="{key_times}" values="{drift_position_values}"/>'
@@ -453,8 +491,8 @@ def render_svg(
             f'<path d="{point_path(pts)}" fill="none" stroke="{t["portrait"]}" '
             'stroke-width="1" opacity="0">'
             f'<animate attributeName="opacity" begin="{num(starts[group])}s" dur=".8s" '
-            'values="0;1" fill="freeze"/>'
-            '<animate attributeName="opacity" begin="3.08s" dur=".12s" values="1;0" fill="freeze"/>'
+            'values="0;.02" fill="freeze"/>'
+            '<animate attributeName="opacity" begin="3.08s" dur=".12s" values=".02;0" fill="freeze"/>'
             "</path>"
         )
     parts.extend(
@@ -463,7 +501,7 @@ def render_svg(
             # Small frame telemetry.
             f'<text x="58" y="551" fill="{t["muted"]}" '
             'font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="10">'
-            f'PTS {len(portrait):05d} · FS/SERPENTINE</text>',
+            '32 TONES · DETAIL / LOW GRAIN</text>',
             # Right information panel (Vim YAML editor view).
             f'<rect x="474" y="88" width="672" height="472" rx="6" fill="{t["panel2"]}" '
             f'stroke="{t["line"]}"/>',
@@ -549,7 +587,7 @@ def main() -> None:
             for name, image in logos.items()
         }
         svg = render_svg(theme, portraits[theme], sampled, hold_particles, rng)
-        output = ASSETS / f"banner-{theme}.v10.svg"
+        output = ASSETS / f"banner-{theme}.v11.svg"
         output.write_text(svg, encoding="utf-8")
         byte_size = output.stat().st_size
         print(
