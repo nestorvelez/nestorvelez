@@ -40,12 +40,12 @@ YAML_ROWS = [
     (0, "profile", ""),
     (1, "subject", "Nestor Velez"),
     (1, "role", "Cloud Infrastructure Engineer"),
-    (1, "scope", "Infraestructura empresarial Azure"),
+    (1, "scope", "Infraestructura multicloud"),
     (1, "focus", "Azure · AKS · DevSecOps"),
     (1, "status", "Seguridad · Automatización · Fiabilidad"),
     (1, "toolchain", "Azure DevOps · GitHub Actions · ArgoCD"),
     (0, "stack", ""),
-    (1, "cloud", "Microsoft Azure"),
+    (1, "cloud", "Azure · GCP · AWS · Oracle OCI"),
     (1, "containers", "AKS · Kubernetes · Docker"),
     (1, "iac", "Terraform (aprendizaje)"),
     (1, "observability", "Dynatrace · Azure Monitor · Zabbix"),
@@ -63,23 +63,23 @@ THEMES = {
         "panel2":  "#101B30",
         "line":    "#25344C",
         "muted":   "#8291A8",
-        "text":    "#F0E6F0",
-        "portrait":"#F78CA0",   # city pop pink
-        "chrome":  "#C9B1D9",   # city pop lavender
-        "accent":  "#F78CA0",
+        "text":    "#DBEAFE",
+        "portrait":"#38BDF8",
+        "chrome":  "#60A5FA",
+        "accent":  "#38BDF8",
         "shadow":  "#02050B",
     },
     "light": {
-        "bg":      "#FDF0F3",
+        "bg":      "#EFF6FF",
         "panel":   "#FFFFFF",
-        "panel2":  "#FDE8EE",
-        "line":    "#F0C0CE",
-        "muted":   "#9B7B8A",
-        "text":    "#2D1A24",
-        "portrait":"#E05F80",
-        "chrome":  "#7B5EA7",
-        "accent":  "#E05F80",
-        "shadow":  "#D4A0B0",
+        "panel2":  "#E0F2FE",
+        "line":    "#BFDBFE",
+        "muted":   "#64748B",
+        "text":    "#0F172A",
+        "portrait":"#0369A1",
+        "chrome":  "#2563EB",
+        "accent":  "#0369A1",
+        "shadow":  "#93C5FD",
     },
 }
 
@@ -184,16 +184,16 @@ def portrait_points(theme: str, rng: np.random.Generator) -> np.ndarray:
     """Return sampled x/y banner coordinates from a 300x340 dither grid."""
     source = Image.open(SOURCE).convert("RGBA")
     # Exclude the white backdrop of the supplied portrait from the particles.
-    background = edge_connected(np.asarray(ImageOps.grayscale(source)) >= 220)
+    pixels = np.asarray(source.convert("RGB"), dtype=np.int16)
+    near_white = (pixels.min(axis=2) >= 180) & (np.ptp(pixels, axis=2) <= 30)
+    background = edge_connected(near_white)
+    # Expand the exterior by one pixel to remove the pale anti-aliased fringe.
+    background = np.asarray(Image.fromarray((background * 255).astype("uint8")).filter(ImageFilter.MaxFilter(3))) > 0
     source.putalpha(Image.fromarray(np.where(background, 0, 255).astype("uint8")))
-    # Tighter head + shoulders crop so face detail fills the VISUAL.MAP frame.
-    w, h = source.size
-    crop_w = int(w * 0.60)
-    crop_h = int(crop_w * (340 / 300))
-    left = (w - crop_w) // 2
-    top = int(h * 0.08)
-    crop = source.crop((left, top, left + crop_w, top + crop_h)).resize((300, 340), Image.Resampling.LANCZOS)
-    rgb = crop.convert("RGB")
+    # Contain the entire head and shoulders, leaving breathing room in the frame.
+    fitted = ImageOps.contain(source, (280, 280), Image.Resampling.LANCZOS)
+    crop = Image.new("RGBA", (300, 340), (0, 0, 0, 0))
+    crop.alpha_composite(fitted, ((300 - fitted.width) // 2, (340 - fitted.height) // 2))
     alpha = np.asarray(crop.getchannel("A"), dtype=np.float32) / 255.0
 
     # Put the portrait over a solid background to process lighting
@@ -205,6 +205,8 @@ def portrait_points(theme: str, rng: np.random.Generator) -> np.ndarray:
         prepared = ImageEnhance.Contrast(prepared).enhance(1.35)
         prepared = ImageEnhance.Brightness(prepared).enhance(1.05)
         prepared = prepared.filter(ImageFilter.UnsharpMask(radius=2.0, percent=160, threshold=1))
+        # A subtle particle floor keeps dark hair and clothing readable.
+        prepared = Image.fromarray(np.maximum(np.asarray(prepared), 28).astype("uint8"))
         select_lit = True
     else:
         bg = Image.new("RGBA", crop.size, "white")
@@ -218,8 +220,7 @@ def portrait_points(theme: str, rng: np.random.Generator) -> np.ndarray:
 
     bits = floyd_steinberg(np.asarray(prepared))
     active = bits if select_lit else ~bits
-    if theme == "dark":
-        active &= alpha > 0.08
+    active &= alpha >= 0.95
 
     # Keep the full 300×340 lattice — skipping 2×2 cells was the soft/blurry look.
     ys, xs = np.where(active)
@@ -548,7 +549,7 @@ def main() -> None:
             for name, image in logos.items()
         }
         svg = render_svg(theme, portraits[theme], sampled, hold_particles, rng)
-        output = ASSETS / f"banner-{theme}.v9.svg"
+        output = ASSETS / f"banner-{theme}.v10.svg"
         output.write_text(svg, encoding="utf-8")
         byte_size = output.stat().st_size
         print(

@@ -2,7 +2,7 @@
   "title": "Cloud & DevSecOps",
   "axes": [
     {
-      "label": "Azure"
+      "label": "Multicloud"
     },
     {
       "label": "AKS / Kubernetes"

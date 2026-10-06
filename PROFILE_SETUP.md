@@ -1,7 +1,7 @@
 # Perfil de Nestor Velez
 
-El diseño conserva la estética city-pop del perfil de macu-dev, con el retrato
-de Nestor y el contenido profesional de su README de GitHub.
+El diseño utiliza una terminal de seguridad con una paleta de azules, el retrato
+completo de Nestor y su contenido profesional de Cloud y DevSecOps.
 
 GitHub muestra este perfil desde el repositorio público `nestorvelez/nestorvelez`,
 con `README.md` y `assets/` en la raíz. El repositorio `readme2` conserva una copia
@@ -10,7 +10,7 @@ del proyecto.
 ## Editar el perfil
 
 - Presentación, tecnologías y contactos: `README.md`.
-- Tarjeta de terminal: `assets/whoami-citypop.svg`.
+- Tarjeta de terminal: `assets/whoami-terminal.svg`.
 - Retrato fuente: `assets/source/portrait.png`.
 - Texto del banner animado: `scripts/banner/generate.py`.
 - Áreas de enfoque y aprendizaje: `assets/skills.json` y `assets/langmix.json`.
