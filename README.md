@@ -33,7 +33,6 @@
 <tr>
 <td width="50%" valign="top"><code>├─ ☁ cloud_infrastructure:</code><br><br>
 <img src="https://skillicons.dev/icons?i=azure,gcp,aws" alt="Microsoft Azure, GCP y AWS">
-
 <img src="assets/icon-oracle-oci.svg" height="48" alt="OCI"><br>
 <sub><code>Microsoft Azure · GCP · AWS · OCI</code></sub></td>
 <td width="50%" valign="top"><code>├─ ☸ containers_platform:</code><br><br>
